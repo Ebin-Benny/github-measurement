@@ -8,7 +8,7 @@ const API_PORT = 3001;
 const app = express();
 const router = express.Router();
 
-const dbRoute = 'mongodb://localhost:27017/githubdata';
+const dbRoute = 'mongodb://github:measurement1@ds119049.mlab.com:19049/github-measurement';
 
 mongoose.connect(
     dbRoute,
