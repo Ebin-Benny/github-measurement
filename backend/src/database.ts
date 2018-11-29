@@ -8,14 +8,15 @@ export const getUserRepos = async (userName: string, callback: any, error: any) 
     const data = new UserRepos();
     const userRepos = await getRepos(userName);
 
-    data.userName = userName;
+    data.username = userName;
 
     let index = 0;
     for (const repo of userRepos.repos) {
       data.repos[index] = {
-        repoID: userRepos.repos[index].repoID,
-        repoName: userRepos.repos[index].repoName,
-        repoSize: userRepos.repos[index].repoSize,
+        id: repo.id,
+        language: repo.language,
+        name: repo.name,
+        size: repo.size,
       };
       index++;
     }

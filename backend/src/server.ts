@@ -2,14 +2,13 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import logger from 'morgan';
-import { UserRepos } from './data';
 import { getUserRepos } from './database';
 
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
 
-const dbRoute = 'mongodb://github:measurement1@ds119049.mlab.com:19049/github-measurement';
+const dbRoute = 'mongodb://127.0.0.1:27017/github-measurement';
 
 mongoose.connect(
   dbRoute,

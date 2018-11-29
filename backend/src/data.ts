@@ -6,9 +6,10 @@ export interface IUserReposData extends Document, IUserRepos {}
 const userRepos = new Schema({
   repos: [
     {
-      repoID: String,
-      repoName: String,
-      repoSize: Number,
+      id: String,
+      language: String,
+      name: String,
+      size: Number,
     },
   ],
   userName: String,

@@ -1,9 +1,10 @@
 export interface IUserRepos {
   repos: IRepo[];
-  userName: string;
+  username: string;
 }
 interface IRepo {
-  repoID: string;
-  repoName: string;
-  repoSize: number;
+  id: string;
+  name: string;
+  size: number;
+  language: string;
 }
