@@ -1,27 +1,17 @@
 import React from 'react';
-import { ResponsiveBubble } from '@nivo/circle-packing'
+import { ResponsiveBubble } from '@nivo/circle-packing';
 
 class Bubble extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             < div style={{ height: 600 }}>
                 <ResponsiveBubble
-                    root={{
-                        "name": "nivo",
-                        "children": [
-                            {
-                                "name": "xAxis",
-                                "loc": 118342,
-                                "language": "Java"
-                            },
-                            {
-                                "loc": 80095,
-                                "name": "yAxis",
-                                "language": "Typescript"
-                            },
-                        ],
-                    }
-                    }
+                    root={this.props.data}
                     identity="name"
                     value="loc"
                     leavesOnly={false}

@@ -24,8 +24,10 @@
 
 .parent .chart {
   position: absolute;
+  height: 100%;
   width: 100%;
   z-index: 100;
+  padding-top: 5%;
 }
 
 @keyframes App-logo-spin {
