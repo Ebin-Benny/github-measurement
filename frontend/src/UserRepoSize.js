@@ -4,7 +4,7 @@ import Bubble from './charts/Bubble';
 import axios from 'axios';
 axios.defaults.port = 3001;
 
-class App extends Component {
+class UserRepoSize extends Component {
 
   constructor(props) {
     super(props);
@@ -65,4 +65,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default UserRepoSize;
