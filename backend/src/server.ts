@@ -1,4 +1,5 @@
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import logger from 'morgan';
@@ -7,8 +8,9 @@ import { getUserRepos } from './database';
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
+const dbRoute = 'mongodb://localhost:27017/github-measurement';
 
-const dbRoute = 'mongodb://127.0.0.1:27017/github-measurement';
+app.use(cors());
 
 mongoose.connect(
   dbRoute,
@@ -23,16 +25,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-router.get('/getUserRepos', (req, res) => {
-  const userName = req.body.userName;
-
+router.get('/getUserRepos', cors(), (req, res) => {
+  const userName = req.query.username;
   if (!userName) {
     return res.json({
       error: 'INVALID INPUTS\n',
       success: false,
     });
   }
-
   getUserRepos(
     userName,
     data => {

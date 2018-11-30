@@ -7,13 +7,13 @@ export const getUserRepos = async (username: string): Promise<IUserRepos> => {
   const data = result.data;
 
   const userRepos: IUserRepos = {
-    repos: [],
-    username,
+    children: [],
+    name: username,
   };
 
   let index = 0;
   for (const repo of data) {
-    userRepos.repos[index++] = { id: repo.id, name: repo.name, size: repo.size, language: repo.language };
+    userRepos.children[index++] = { id: repo.id, name: repo.name, size: repo.size, language: repo.language };
   }
 
   return userRepos;

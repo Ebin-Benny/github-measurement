@@ -4,7 +4,7 @@ import { IUserRepos } from './models';
 export interface IUserReposData extends Document, IUserRepos {}
 
 const userRepos = new Schema({
-  repos: [
+  children: [
     {
       id: String,
       language: String,
@@ -12,7 +12,7 @@ const userRepos = new Schema({
       size: Number,
     },
   ],
-  userName: String,
+  name: String,
 });
 
 export const UserRepos: Model<IUserReposData> = model<IUserReposData>('UserRepos', userRepos);

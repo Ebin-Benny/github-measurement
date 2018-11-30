@@ -1,6 +1,6 @@
 export interface IUserRepos {
-  repos: IRepo[];
-  username: string;
+  children: IRepo[];
+  name: string;
 }
 interface IRepo {
   id: string;
