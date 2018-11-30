@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Bubble from './charts/Bubble';
-import Form from './input/Form';
+import axios from 'axios';
+axios.defaults.port = 3001;
 
 class App extends Component {
 
@@ -9,6 +10,9 @@ class App extends Component {
     super(props);
     this.state = {
       data: {
+        "name": "1",
+        "size": 1,
+        "language": "Java"
       },
       value: "",
     }
@@ -22,23 +26,20 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({
-      data: {
-        "name": "nivo",
-        "children": [
-          {
-            "name": "xAxis",
-            "loc": 118342,
-            "language": "Java"
-          },
-          {
-            "loc": 80095,
-            "name": "yAxis",
-            "language": "Typescript"
-          },
-        ],
-      }
-    });
+    if (this.state.value !== undefined || this.state.value !== '') {
+      axios({
+        method: 'get',
+        url: 'http://127.0.0.1:3001/api/getUserRepos',
+        params: {
+          username: this.state.value
+        }
+      }).then((result) => {
+        result.data.data.language = "USERNAME"
+        this.setState({ data: result.data.data });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 
   render() {
@@ -46,19 +47,16 @@ class App extends Component {
     return (
       <div>
         <div className="App-header">
-          <header>
-            Github
-        </header>
           <div className="input-form">
             <form onSubmit={this.handleSubmit}>
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input className="ghost-input" type="text" value={this.state.value} onChange={this.handleChange} />
             </form>
           </div>
         </div>
         <div className="App">
           <div className="parent">
             <div className="chart">
-              <Bubble data={data} />
+              <Bubble data={data} title={"Size of the Users Repos"} />
             </div>
           </div>
         </div>
