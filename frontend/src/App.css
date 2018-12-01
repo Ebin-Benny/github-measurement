@@ -3,7 +3,9 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: #f12711; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f12711, #f5af19); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #f12711, #f5af19); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +16,9 @@
 
 .App-footer {
   clear: both;
-  background: #282c34;
+  background: #f12711; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f12711, #f5af19); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #f12711, #f5af19); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: White;
   padding: 0;
   text-align: center;
@@ -39,7 +43,8 @@
 
 .parent {
   position: relative;
-  min-height: 500px;
+  height: 100%;
+  min-height: 750px;
 }
 
 .parent .chart {
@@ -61,7 +66,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #fff;
-  background: #282c34;
+  background: transparent;
   padding: 10px 15px;
   margin: 20px 0px;
   -webkit-transition: all 0.1s ease-in-out;
@@ -70,6 +75,16 @@
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
   text-align: center;
+  border-bottom:1px solid #ddd;
+}
+
+::placeholder { 
+  color: white;
+  opacity: 1;
+  }
+
+.ghost-input:focus{
+  border-bottom:1px solid #f12711;
 }
 
 .ghost-input-small, p {
@@ -84,7 +99,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #fff;
-  background: #282c34;
+  background: transparent;
   padding: 10px 10px;
   margin: 5px 0px;
   -webkit-transition: all 0.1s ease-in-out;
@@ -96,7 +111,7 @@
 }
 
 .ghost-input-small:hover, .ghost-input-small:focus{
-  background:#393d45;
+  background:#f12711;
 }
 
 .ghost-button {
@@ -109,10 +124,6 @@
   -ms-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
-}
-
-.ghost-input:focus{
-  border-bottom:1px solid #ddd;
 }
 
 h1, h2, p, ul, li {
@@ -139,11 +150,11 @@ h1, h2, p, ul, li {
 }
 
 .App-footer li a:active, .App-footer li a:hover{
-  background: #393d45;
+  background: #f12711;
 }
 
 .content {
-  background-color: #282c34;
+  background-color: #f12711;
   padding: 20px;
 }
 .content h2 {

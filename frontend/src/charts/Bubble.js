@@ -6,13 +6,19 @@ class Bubble extends React.Component {
 
     render() {
         return (
-            < div style={{ height: 700 }}>
+            < div style={{ height: '100%' }}>
                 <ResponsiveBubble
                     root={this.props.data}
+                    margin={{
+                        "top": 100,
+                        "right": 0,
+                        "bottom": 0,
+                        "left": 0
+                    }}
                     identity="name"
                     value="size"
                     leavesOnly={false}
-                    colors="accent"
+                    colors="nivo"
                     labelTextColor="#000"
                     labelSkipRadius={6}
                     colorBy="language"

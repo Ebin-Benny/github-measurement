@@ -95,7 +95,7 @@ class RepoContributions extends Component {
         return (
             <div>
                 <div className="App-header">
-                    <div className="input-form">
+                    <div className="input-form" onSubmit={this.handleCommits}>
                         <form>
                             <input className="ghost-input" placeholder="Repo Name" type="text" value={this.state.value} onChange={this.handleChange} />
                         </form>

@@ -6,12 +6,12 @@ class Bubble extends React.Component {
 
     render() {
         return (
-            < div className="center" style={{ height: 700, width: 700 }}>
+            < div className="center" style={{ height: 700, width: '80%' }}>
                 <ResponsiveStream
                     data={this.props.data}
                     keys={this.props.keys}
                     margin={{
-                        "top": 50,
+                        "top": 70,
                         "right": 110,
                         "bottom": 50,
                         "left": 50
