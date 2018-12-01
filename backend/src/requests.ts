@@ -1,7 +1,8 @@
 import Octokit from '@octokit/rest';
+import fs from 'fs';
 import { IRepoContributions, IUserRepos } from './models';
 const octokit = new Octokit();
-const token = require('./token.txt');
+const token = fs.readFileSync('token.txt', 'utf8');
 
 octokit.authenticate({
   token,
