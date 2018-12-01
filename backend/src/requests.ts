@@ -9,26 +9,43 @@ octokit.authenticate({
   type: 'token',
 });
 export const getUserRepos = async (username: string): Promise<IUserRepos> => {
-  const result = await octokit.repos.listForUser({ username, type: 'all', per_page: 100 });
-  const data = result.data;
+  try {
+    const result = await octokit.repos.listForUser({ username, type: 'all', per_page: 100 });
+    const data = result.data;
 
-  const userRepos: IUserRepos = {
-    children: [],
-    name: username,
-  };
+    const userRepos: IUserRepos = {
+      children: [],
+      name: username,
+    };
 
-  let index = 0;
-  for (const repo of data) {
-    userRepos.children[index++] = { id: repo.id, name: repo.full_name, size: repo.size, language: repo.language };
+    let index = 0;
+    for (const repo of data) {
+      userRepos.children[index++] = { id: repo.id, name: repo.full_name, size: repo.size, language: repo.language };
+    }
+
+    return userRepos;
+  } catch (e) {
+    return Promise.reject();
   }
-
-  return userRepos;
 };
 
 export const getRepoContributions = async (owner: string, repo: string): Promise<IRepoContributions> => {
-  const result = await octokit.repos.getContributorsStats({ owner, repo });
-  const data = result.data;
+  let result;
+  let status;
 
+  do {
+    try {
+      result = await octokit.repos.getContributorsStats({ owner, repo });
+      status = result.status;
+      if (status !== 200 && status !== 202) {
+        return Promise.reject();
+      }
+    } catch (e) {
+      return Promise.reject();
+    }
+  } while (status === 202);
+
+  const data = result.data;
   const repoContributions: IRepoContributions = {
     name: owner + '/' + repo,
     weeks: [],

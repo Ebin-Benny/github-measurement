@@ -54,6 +54,7 @@ router.get('/getRepoContributions', cors(), (req, res) => {
   const split = fullRepo.split('/');
   const owner = split[0];
   const repo = split[1];
+
   if (!fullRepo || !owner || !repo) {
     return res.json({
       error: 'INVALID INPUTS\n',
