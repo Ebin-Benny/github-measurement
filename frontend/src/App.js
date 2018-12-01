@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import UserRepoSize from './components/UserRepoSize';
-import RepoContributions from './components/RepoContributions';
+import UserStats from './components/UserStats';
+import RepoStats from './components/RepoStats';
 
 import {
     Route,
@@ -16,12 +16,12 @@ class App extends Component {
             <HashRouter>
                 <div>
                     <div>
-                        <Route path="/UserRepoSize" component={UserRepoSize} />
-                        <Route path="/RepoContributions" component={RepoContributions} />
+                        <Route path="/User" component={UserStats} />
+                        <Route path="/Repo" component={RepoStats} />
                     </div>
                     <ul className="App-footer">
-                        <li><NavLink to="/UserRepoSize">Repo Size</NavLink></li>
-                        <li><NavLink to="/RepoContributions">Repo Contributions</NavLink></li>
+                        <li><NavLink to="/User">User Information</NavLink></li>
+                        <li><NavLink to="/Repo">Repo Information</NavLink></li>
                     </ul>
                 </div>
             </HashRouter>

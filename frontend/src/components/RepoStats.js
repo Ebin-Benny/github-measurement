@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Stream from '../charts/Stream';
+import Radar from '../charts/Radar'
 import axios from 'axios';
 
 axios.defaults.port = 3001;
 
-class RepoContributions extends Component {
+class RepoStats extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: {},
-            keys: {},
+            streamData: { commits: [], additions: [], deletions: [], net: [] },
+            streamKeys: {},
+            radarData: {},
+            radarKeys: {},
+            repoName: 'START STATE',
             state: 'commits',
             value: "",
             message: 'Number of Commits',
@@ -23,6 +27,7 @@ class RepoContributions extends Component {
         this.handleAdditions = this.handleAdditions.bind(this);
         this.handleDeletions = this.handleDeletions.bind(this);
         this.handleNet = this.handleNet.bind(this);
+        this.handleTotal = this.handleTotal.bind(this);
     }
 
     handleChange(event) {
@@ -31,6 +36,10 @@ class RepoContributions extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+
+        if (this.state.repoName === this.state.value)
+            return;
+
         if (this.state.value !== undefined || this.state.value !== '') {
             axios({
                 method: 'get',
@@ -39,26 +48,49 @@ class RepoContributions extends Component {
                     repo: this.state.value
                 }
             }).then((result) => {
-                var data = [];
-                var keys = [];
+                var streamData = { commits: [], additions: [], deletions: [], net: [] };
+                var streamKeys = [];
+                var radarData = [];
+                var radarKeys = [];
                 var index = 0;
                 var keysIndex = 0;
-                var info = this.state.state;
+
                 for (var week of result.data.data.weeks) {
                     var statIndex = 0;
                     for (var stat of week.stats) {
                         if (index === 0) {
-                            keys[keysIndex++] = stat.author;
+                            streamKeys[keysIndex++] = stat.author;
                         }
                         if (statIndex++ === 0) {
-                            data[index] = {};
+                            streamData.commits[index] = {};
+                            streamData.additions[index] = {};
+                            streamData.deletions[index] = {};
+                            streamData.net[index] = {};
                         }
-                        data[index][stat.author] = stat[info];
+                        streamData.commits[index][stat.author] = stat['commits'];
+                        streamData.additions[index][stat.author] = stat['additions'];
+                        streamData.deletions[index][stat.author] = stat['deletions'];
+                        streamData.net[index][stat.author] = stat['net'];
                     }
                     index++;
                 }
 
-                this.setState({ data, keys, visible: true });
+                let radarKeyIndex = 0;
+                radarData[0] = { 'measure': 'Lines of Code Added' };
+                for (let user of result.data.data.totalAdditions) {
+                    radarData[0][user.name] = user.stat;
+                    radarKeys[radarKeyIndex++] = user.name;
+                }
+                radarData[1] = { 'measure': 'Lines of Code Deleted' };
+                for (let user of result.data.data.totalDeletions) {
+                    radarData[1][user.name] = user.stat;
+                }
+                radarData[2] = { 'measure': 'Net Amount of Code' };
+                for (let user of result.data.data.totalNet) {
+                    radarData[2][user.name] = user.stat;
+                }
+
+                this.setState({ streamKeys, streamData, radarData, radarKeys, repoName: this.state.value, visible: true });
             }).catch(function (error) {
                 console.log(error);
             });
@@ -89,15 +121,30 @@ class RepoContributions extends Component {
         this.handleSubmit(event);
     }
 
+    handleTotal(event) {
+        event.preventDefault();
+        this.setState({ state: 'total', message: 'Total Stats' });
+        this.handleSubmit(event);
+    }
 
     render() {
-        const { data, keys, message } = this.state;
+        const { streamData, streamKeys, radarData, radarKeys, message } = this.state;
+        let chart = null;
+
+        if (this.state.visible) {
+            if (this.state.state === 'total') {
+                chart = <Radar data={radarData} keys={radarKeys} />
+            }
+            else {
+                chart = <Stream message={message} data={streamData[this.state.state]} keys={streamKeys} />
+            }
+        }
         return (
             <div>
                 <div className="App-header">
                     <div className="input-form" onSubmit={this.handleCommits}>
                         <form>
-                            <input className="ghost-input" placeholder="Repo Name" type="text" value={this.state.value} onChange={this.handleChange} />
+                            <input className="ghost-input" placeholder="Extended Repo Name" type="text" value={this.state.value} onChange={this.handleChange} />
                         </form>
                     </div>
                     <div className="rows">
@@ -111,14 +158,17 @@ class RepoContributions extends Component {
                             <input className="ghost-input-small" type="submit" value="Deletions" />
                         </form>
                         <form className="row" onSubmit={this.handleNet}>
-                            <input className="ghost-input-small" type="submit" value="Net" />
+                            <input className="ghost-input-small" type="submit" value="Net Code" />
+                        </form>
+                        <form className="row" onSubmit={this.handleTotal}>
+                            <input className="ghost-input-small" type="submit" value="Overall Stats" />
                         </form>
                     </div>
                 </div>
                 <div className="App">
                     <div className="parent">
                         <div className="chart">
-                            {this.state.visible ? <Stream message={message} data={data} keys={keys} /> : null}
+                            {chart}
                         </div>
                     </div>
                 </div>
@@ -127,4 +177,4 @@ class RepoContributions extends Component {
     }
 }
 
-export default RepoContributions;
+export default RepoStats;

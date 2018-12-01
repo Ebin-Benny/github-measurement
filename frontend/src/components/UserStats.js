@@ -5,7 +5,7 @@ import axios from 'axios';
 
 axios.defaults.port = 3001;
 
-class UserRepoSize extends Component {
+class UserStats extends Component {
 
   constructor(props) {
     super(props);
@@ -65,4 +65,4 @@ class UserRepoSize extends Component {
   }
 }
 
-export default UserRepoSize;
+export default UserStats;

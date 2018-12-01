@@ -11,7 +11,7 @@ class Bubble extends React.Component {
                     data={this.props.data}
                     keys={this.props.keys}
                     margin={{
-                        "top": 70,
+                        "top": 50,
                         "right": 110,
                         "bottom": 50,
                         "left": 50
