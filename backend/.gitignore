@@ -80,3 +80,6 @@ typings/
 
 #typescript dist
 dist/
+
+#token
+token

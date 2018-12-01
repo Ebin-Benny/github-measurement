@@ -1,9 +1,10 @@
 import Octokit from '@octokit/rest';
 import { IRepoContributions, IUserRepos } from './models';
 const octokit = new Octokit();
+const token = require('./token.txt');
 
 octokit.authenticate({
-  token: 'a88c4e417353a20bb93e096cb135f99c828b5f0b',
+  token,
   type: 'token',
 });
 export const getUserRepos = async (username: string): Promise<IUserRepos> => {
