@@ -1,7 +1,8 @@
 import { Document, Model, model, Schema } from 'mongoose';
-import { IUserRepos } from './models';
+import { IRepoContributions, IUserRepos } from './models';
 
 export interface IUserReposData extends Document, IUserRepos {}
+export interface IRepoContributionsData extends Document, IRepoContributions {}
 
 const userRepos = new Schema({
   children: [
@@ -15,4 +16,18 @@ const userRepos = new Schema({
   name: String,
 });
 
+const repoContributions = new Schema({
+  name: String,
+  weeks: [
+    {
+      stats: [{ author: String, additions: Number, deletions: Number, net: Number, commits: Number }],
+      week: Number,
+    },
+  ],
+});
+
 export const UserRepos: Model<IUserReposData> = model<IUserReposData>('UserRepos', userRepos);
+export const RepoContributions: Model<IRepoContributionsData> = model<IRepoContributionsData>(
+  'RepoContributions',
+  repoContributions,
+);

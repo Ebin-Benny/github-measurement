@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import logger from 'morgan';
-import { getUserRepos } from './database';
+import { getRepoContributions, getUserRepos } from './database';
 
 const API_PORT = 3001;
 const app = express();
@@ -35,6 +35,35 @@ router.get('/getUserRepos', cors(), (req, res) => {
   }
   getUserRepos(
     userName,
+    data => {
+      return res.json({
+        data,
+        success: true,
+      });
+    },
+    () => {
+      return res.json({
+        success: false,
+      });
+    },
+  );
+});
+
+router.get('/getRepoContributions', cors(), (req, res) => {
+  const fullRepo = req.query.repo;
+  const split = fullRepo.split('/');
+  const owner = split[0];
+  const repo = split[1];
+  if (!fullRepo || !owner || !repo) {
+    return res.json({
+      error: 'INVALID INPUTS\n',
+      success: false,
+    });
+  }
+
+  getRepoContributions(
+    owner,
+    repo,
     data => {
       return res.json({
         data,
