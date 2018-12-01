@@ -13,6 +13,16 @@ export interface IRepoContributions {
   name: string;
 
   weeks: IWeek[];
+
+  totalAdditions: ITotalStats[];
+  totalDeletions: ITotalStats[];
+  totalNet: ITotalStats[];
+  totalCommits: ITotalStats[];
+}
+
+interface ITotalStats {
+  name: string;
+  stat: number;
 }
 
 interface IWeek {

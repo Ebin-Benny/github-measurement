@@ -18,6 +18,10 @@ const userRepos = new Schema({
 
 const repoContributions = new Schema({
   name: String,
+  totalAdditions: [{ name: String, stat: Number }],
+  totalCommits: [{ name: String, stat: Number }],
+  totalDeletions: [{ name: String, stat: Number }],
+  totalNet: [{ name: String, stat: Number }],
   weeks: [
     {
       stats: [{ author: String, additions: Number, deletions: Number, net: Number, commits: Number }],

@@ -48,6 +48,10 @@ export const getRepoContributions = async (owner: string, repo: string): Promise
   const data = result.data;
   const repoContributions: IRepoContributions = {
     name: owner + '/' + repo,
+    totalAdditions: [],
+    totalCommits: [],
+    totalDeletions: [],
+    totalNet: [],
     weeks: [],
   };
 
@@ -57,7 +61,7 @@ export const getRepoContributions = async (owner: string, repo: string): Promise
     weekCount = 0;
     for (const week of author.weeks) {
       if (index === 0) {
-        repoContributions.weeks[weekCount++] = {
+        repoContributions.weeks[weekCount] = {
           stats: [
             {
               additions: week.a,
@@ -70,7 +74,7 @@ export const getRepoContributions = async (owner: string, repo: string): Promise
           week: week.w,
         };
       } else {
-        repoContributions.weeks[weekCount++].stats[index] = {
+        repoContributions.weeks[weekCount].stats[index] = {
           additions: week.a,
           author: author.author.login,
           commits: week.c,
@@ -78,6 +82,18 @@ export const getRepoContributions = async (owner: string, repo: string): Promise
           net: week.a - week.d,
         };
       }
+      if (weekCount === 0) {
+        repoContributions.totalAdditions[index] = { name: author.author.login, stat: week.a };
+        repoContributions.totalDeletions[index] = { name: author.author.login, stat: week.d };
+        repoContributions.totalNet[index] = { name: author.author.login, stat: week.a - week.d };
+        repoContributions.totalCommits[index] = { name: author.author.login, stat: week.c };
+      } else {
+        repoContributions.totalAdditions[index].stat = repoContributions.totalAdditions[index].stat + week.a;
+        repoContributions.totalDeletions[index].stat = repoContributions.totalDeletions[index].stat + week.d;
+        repoContributions.totalNet[index].stat = repoContributions.totalNet[index].stat + (week.a - week.d);
+        repoContributions.totalCommits[index].stat = repoContributions.totalCommits[index].stat + week.c;
+      }
+      weekCount++;
     }
     index++;
   }
@@ -95,6 +111,5 @@ export const getRepoContributions = async (owner: string, repo: string): Promise
     }
     weekCount--;
   }
-
   return repoContributions;
 };

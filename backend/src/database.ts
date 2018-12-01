@@ -68,6 +68,27 @@ export const getRepoContributions = async (owner: string, repo: string, callback
         index++;
       }
 
+      index = 0;
+      while (index < repoContributions.totalAdditions.length) {
+        data.totalAdditions[index] = {
+          name: repoContributions.totalAdditions[index].name,
+          stat: repoContributions.totalAdditions[index].stat,
+        };
+        data.totalCommits[index] = {
+          name: repoContributions.totalCommits[index].name,
+          stat: repoContributions.totalCommits[index].stat,
+        };
+        data.totalDeletions[index] = {
+          name: repoContributions.totalDeletions[index].name,
+          stat: repoContributions.totalDeletions[index].stat,
+        };
+        data.totalNet[index] = {
+          name: repoContributions.totalNet[index].name,
+          stat: repoContributions.totalNet[index].stat,
+        };
+        index++;
+      }
+
       await data.save();
 
       ret = await RepoContributions.findOne({ name: owner + '/' + repo });
@@ -81,6 +102,7 @@ export const getRepoContributions = async (owner: string, repo: string, callback
       callback(ret);
     }
   } catch (e) {
+    console.log(e);
     error();
   }
 };
