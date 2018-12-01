@@ -7,13 +7,14 @@ class Radar extends React.Component {
     render() {
         return (
             < div style={{ height: '100%' }}>
+                <div className="chart-title">{this.props.title}</div>
                 <ResponsiveRadar
                     data={this.props.data}
                     keys={this.props.keys}
                     indexBy="measure"
                     maxValue="auto"
                     margin={{
-                        "top": 70,
+                        "top": 20,
                         "right": 80,
                         "bottom": 40,
                         "left": 80

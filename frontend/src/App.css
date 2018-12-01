@@ -83,6 +83,13 @@
   opacity: 1;
   }
 
+.chart-title{
+  font-weight:300;
+  font-size: 18px;
+  color: #000;
+  padding: 20px;
+}
+
 .ghost-input:focus{
   border-bottom:1px solid #f12711;
 }

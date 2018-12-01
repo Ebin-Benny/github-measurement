@@ -7,12 +7,13 @@ class Bubble extends React.Component {
     render() {
         return (
             < div style={{ height: '100%' }}>
+                <div className="chart-title">{this.props.message}</div>
                 <ResponsiveBubble
                     root={this.props.data}
                     margin={{
-                        "top": 100,
+                        "top": 10,
                         "right": 0,
-                        "bottom": 0,
+                        "bottom": 10,
                         "left": 0
                     }}
                     identity="name"

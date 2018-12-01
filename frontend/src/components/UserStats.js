@@ -10,9 +10,7 @@ class UserStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-
-      },
+      data: {},
       value: "",
       visible: false,
     }
@@ -56,7 +54,7 @@ class UserStats extends Component {
         <div className="App">
           <div className="parent">
             <div className="chart">
-              {this.state.visible ? <Bubble data={data} /> : null}
+              {this.state.visible ? <Bubble message={'Size of Users Repos (kB)'} data={data} /> : null}
             </div>
           </div>
         </div>

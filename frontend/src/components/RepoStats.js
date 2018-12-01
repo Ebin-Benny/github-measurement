@@ -19,6 +19,7 @@ class RepoStats extends Component {
             state: 'commits',
             value: "",
             message: 'Number of Commits',
+            title: 'Number of Commits By Contributors',
             visible: false,
         }
         this.handleChange = this.handleChange.bind(this);
@@ -99,44 +100,44 @@ class RepoStats extends Component {
 
     handleCommits(event) {
         event.preventDefault();
-        this.setState({ state: 'commits', message: 'Number of Commits' });
+        this.setState({ state: 'commits', message: 'Number of Commits', title: 'Number of Commits By Contributors Over Time' });
         this.handleSubmit(event);
     }
 
     handleAdditions(event) {
         event.preventDefault();
-        this.setState({ state: 'additions', message: 'Lines of Code Added' });
+        this.setState({ state: 'additions', message: 'Lines of Code Added', title: 'Lines of Code Added by Contributors Over Time' });
         this.handleSubmit(event);
     }
 
     handleDeletions(event) {
         event.preventDefault();
-        this.setState({ state: 'deletions', message: 'Lines of Code Deleted' });
+        this.setState({ state: 'deletions', message: 'Lines of Code Deleted', title: 'Lines of Code Deleted by Contributors Over Time' });
         this.handleSubmit(event);
     }
 
     handleNet(event) {
         event.preventDefault();
-        this.setState({ state: 'net', message: 'Net Lines of Code' });
+        this.setState({ state: 'net', message: 'Net Lines of Code', title: 'Net Amount of Code Added by Contributors' });
         this.handleSubmit(event);
     }
 
     handleTotal(event) {
         event.preventDefault();
-        this.setState({ state: 'total', message: 'Total Stats' });
+        this.setState({ state: 'total', message: 'Total Stats', title: 'Total Contributor Statistics From All Time' });
         this.handleSubmit(event);
     }
 
     render() {
-        const { streamData, streamKeys, radarData, radarKeys, message } = this.state;
+        const { streamData, streamKeys, radarData, radarKeys, message, title } = this.state;
         let chart = null;
 
         if (this.state.visible) {
             if (this.state.state === 'total') {
-                chart = <Radar data={radarData} keys={radarKeys} />
+                chart = <Radar title={title} data={radarData} keys={radarKeys} />
             }
             else {
-                chart = <Stream message={message} data={streamData[this.state.state]} keys={streamKeys} />
+                chart = <Stream title={title} message={message} data={streamData[this.state.state]} keys={streamKeys} />
             }
         }
         return (
@@ -144,7 +145,7 @@ class RepoStats extends Component {
                 <div className="App-header">
                     <div className="input-form" onSubmit={this.handleCommits}>
                         <form>
-                            <input className="ghost-input" placeholder="Extended Repo Name" type="text" value={this.state.value} onChange={this.handleChange} />
+                            <input className="ghost-input" placeholder="Owner/Repo" type="text" value={this.state.value} onChange={this.handleChange} />
                         </form>
                     </div>
                     <div className="rows">
