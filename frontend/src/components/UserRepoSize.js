@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
-import Bubble from './charts/Bubble';
+import '../App.css';
+import Bubble from '../charts/Bubble';
 import axios from 'axios';
+
 axios.defaults.port = 3001;
 
 class UserRepoSize extends Component {
@@ -10,11 +11,10 @@ class UserRepoSize extends Component {
     super(props);
     this.state = {
       data: {
-        "name": "1",
-        "size": 1,
-        "language": "Java"
+
       },
       value: "",
+      visible: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,7 +35,7 @@ class UserRepoSize extends Component {
         }
       }).then((result) => {
         result.data.data.language = "USERNAME"
-        this.setState({ data: result.data.data });
+        this.setState({ data: result.data.data, visible: true });
       }).catch(function (error) {
         console.log(error);
       });
@@ -49,14 +49,14 @@ class UserRepoSize extends Component {
         <div className="App-header">
           <div className="input-form">
             <form onSubmit={this.handleSubmit}>
-              <input className="ghost-input" type="text" value={this.state.value} onChange={this.handleChange} />
+              <input className="ghost-input" placeholder="Username" type="text" value={this.state.value} onChange={this.handleChange} />
             </form>
           </div>
         </div>
         <div className="App">
           <div className="parent">
             <div className="chart">
-              <Bubble data={data} title={"Size of the Users Repos"} />
+              {this.state.visible ? <Bubble data={data} /> : null}
             </div>
           </div>
         </div>

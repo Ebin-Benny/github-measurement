@@ -13,6 +13,21 @@
   color: white;
 }
 
+.App-footer {
+  clear: both;
+  background: #282c34;
+  color: White;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  line-height: normal;
+  margin: 0;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 100;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -26,13 +41,8 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 100;
-  padding-top: 2.5%;
-}
-
-.chart-title {
-  font-size: 18px;
-  padding-bottom: 2.5%;
+  z-index: 1;
+  padding-top: 3%;
 }
 
 .ghost-input, p {
@@ -59,6 +69,35 @@
 }
 .ghost-input:focus {
   border-bottom:1px solid #ddd;
+}
+
+h1, h2, p, ul, li {
+  font-family: sans-serif;
+}
+
+.App-footer li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+}
+
+.App-footer li a {
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 20px;
+  display: inline-block;
+}
+.content {
+  background-color: #282c34;
+  padding: 20px;
+}
+.content h2 {
+  padding: 0;
+  margin: 0;
+}
+.content li {
+  margin-bottom: 10px;
 }
 
 @keyframes App-logo-spin {

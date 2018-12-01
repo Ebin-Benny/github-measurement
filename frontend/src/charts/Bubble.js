@@ -7,7 +7,6 @@ class Bubble extends React.Component {
     render() {
         return (
             < div style={{ height: 700 }}>
-                <div className="chart-title">{this.props.title}</div>
                 <ResponsiveBubble
                     root={this.props.data}
                     identity="name"
