@@ -53,11 +53,11 @@ export const getRepoContributions = async (owner: string, repo: string, callback
       data.weeks[index] = { week: week.week, stats: [] };
       for (const stat of week.stats) {
         data.weeks[index].stats[statIndex++] = {
-          author: stat.author,
           additions: stat.additions,
+          author: stat.author,
+          commits: stat.commits,
           deletions: stat.deletions,
           net: stat.net,
-          commits: stat.commits,
         };
       }
       index++;

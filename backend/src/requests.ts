@@ -39,24 +39,24 @@ export const getRepoContributions = async (owner: string, repo: string): Promise
     for (const week of author.weeks) {
       if (index === 0) {
         repoContributions.weeks[weekCount++] = {
-          week: week.w,
           stats: [
             {
-              author: author.author.login,
               additions: week.a,
+              author: author.author.login,
+              commits: week.c,
               deletions: week.d,
               net: week.a - week.d,
-              commits: week.c,
             },
           ],
+          week: week.w,
         };
       } else {
         repoContributions.weeks[weekCount++].stats[index] = {
-          author: author.author.login,
           additions: week.a,
+          author: author.author.login,
+          commits: week.c,
           deletions: week.d,
           net: week.a - week.d,
-          commits: week.c,
         };
       }
     }
