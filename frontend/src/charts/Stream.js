@@ -16,7 +16,7 @@ class Bubble extends React.Component {
                         "bottom": 50,
                         "left": 50
                     }}
-                    curve='catmullRom'
+                    curve='monotoneX'
                     axisTop={null}
                     axisRight={null}
                     axisBottom={{
@@ -37,7 +37,7 @@ class Bubble extends React.Component {
                         "legend": this.props.message,
                         "legendOffset": -40
                     }}
-                    colors='accent'
+                    colors='nivo'
                     offsetType="none"
                     borderColor="#000"
                     order='descending'

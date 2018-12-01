@@ -130,12 +130,18 @@ h1, h2, p, ul, li {
 }
 
 .App-footer li a {
+  font-size: 18px;
   color: #FFF;
-  font-weight: bold;
+  font-weight:300;
   text-decoration: none;
   padding: 20px;
   display: inline-block;
 }
+
+.App-footer li a:active, .App-footer li a:hover{
+  background: #393d45;
+}
+
 .content {
   background-color: #282c34;
   padding: 20px;
