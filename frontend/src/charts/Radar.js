@@ -14,9 +14,9 @@ class Radar extends React.Component {
                     indexBy="measure"
                     maxValue="auto"
                     margin={{
-                        "top": 20,
+                        "top": 80,
                         "right": 80,
-                        "bottom": 40,
+                        "bottom": 80,
                         "left": 80
                     }}
                     curve="catmullRomClosed"

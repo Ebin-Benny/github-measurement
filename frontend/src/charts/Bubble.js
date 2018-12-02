@@ -13,7 +13,7 @@ class Bubble extends React.Component {
                     margin={{
                         "top": 10,
                         "right": 0,
-                        "bottom": 10,
+                        "bottom": 25,
                         "left": 0
                     }}
                     identity="name"

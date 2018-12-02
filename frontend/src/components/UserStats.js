@@ -27,7 +27,7 @@ class UserStats extends Component {
     if (this.state.value !== undefined || this.state.value !== '') {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:3001/api/getUserRepos',
+        url: 'http://api.ebin.xyz/api/getUserRepos',
         params: {
           username: this.state.value
         }

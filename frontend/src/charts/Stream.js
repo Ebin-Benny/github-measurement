@@ -14,7 +14,7 @@ class Bubble extends React.Component {
                     margin={{
                         "top": 0,
                         "right": 110,
-                        "bottom": 50,
+                        "bottom": 70,
                         "left": 50
                     }}
                     curve='monotoneX'
