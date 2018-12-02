@@ -14,7 +14,8 @@ class UserStats extends Component {
       value: "",
       visible: false,
       state: 'size',
-      title: 'Size of Users Repos (kB)'
+      title: 'Size of Users Repos (kB)',
+      total: { "size": 0, "stars": 0, "forks": 0, "watchers": 0 }
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,11 +42,15 @@ class UserStats extends Component {
           username: this.state.value
         }
       }).then((result) => {
-        result.data.data.size.language = "USERNAME";
-        result.data.data.stars.language = "USERNAME";
-        result.data.data.forks.language = "USERNAME";
-        result.data.data.watchers.language = "USERNAME";
-        this.setState({ data: result.data.data, visible: true });
+        const types = ['size', 'stars', 'watchers', 'forks'];
+        let total = { "size": 0, "stars": 0, "forks": 0, "watchers": 0 };
+        for (var type of types) {
+          result.data.data[type].language = "USERNAME";
+          for (var child of result.data.data[type].children) {
+            total[type] = total[type] + child.value;
+          }
+        }
+        this.setState({ data: result.data.data, visible: true, total });
       }).catch(function (error) {
         console.log(error);
       });
@@ -79,6 +84,18 @@ class UserStats extends Component {
 
   render() {
     const { data, message, state } = this.state;
+    let chart = null;
+    if (this.state.total[this.state.state] !== 0) {
+      chart = <Bubble message={message} data={data[state]} />
+    } else {
+      const errors = {
+        'size': 'This user has no repos',
+        'stars': 'This user has no stars on their repos',
+        'forks': 'No-one has forked this users repos',
+        'watchers': 'No-one is watching this users repos'
+      }
+      chart = <div className="chart-title">{errors[this.state.state]}</div>
+    }
     return (
       <div>
         <div className="App-header">
@@ -105,7 +122,7 @@ class UserStats extends Component {
         <div className="App">
           <div className="parent">
             <div className="chart">
-              {this.state.visible ? <Bubble message={message} data={data[state]} /> : null}
+              {this.state.visible ? chart : null}
             </div>
           </div>
         </div>
