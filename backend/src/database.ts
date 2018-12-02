@@ -3,31 +3,33 @@ import { getRepoContributions as getContributions, getUserRepos as getUsers } fr
 
 export const getUserRepos = async (userName: string, callback: any, error: any) => {
   try {
-    let ret = await UserRepos.findOne({ name: userName });
+    let ret = await UserRepos.findOne({ user: userName });
 
     if (!ret) {
       const data = new UserRepos();
+      const dataTypes = ['size', 'stars', 'forks', 'watchers'];
       const userRepos = await getUsers(userName);
 
-      data.name = userName;
-
-      let index = 0;
-      for (const repo of userRepos.children) {
-        if (repo.language === undefined) {
-          repo.language = 'N/A';
+      data.user = userName;
+      for (const type of dataTypes) {
+        let index = 0;
+        data[type].name = userName;
+        while (index < userRepos[type].children.length) {
+          if (userRepos[type].children[index].language === undefined) {
+            userRepos[type].children[index].language = 'N/A';
+          }
+          data[type].children[index] = {
+            language: userRepos[type].children[index].language,
+            name: userRepos[type].children[index].name,
+            value: userRepos[type].children[index].value,
+          };
+          index++;
         }
-        data.children[index] = {
-          id: repo.id,
-          language: repo.language,
-          name: repo.name,
-          size: repo.size,
-        };
-        index++;
       }
 
       await data.save();
 
-      ret = await UserRepos.findOne({ name: userName });
+      ret = await UserRepos.findOne({ user: userName });
 
       if (!ret) {
         error();
@@ -68,25 +70,16 @@ export const getRepoContributions = async (owner: string, repo: string, callback
         index++;
       }
 
+      const dataTypes = ['totalAdditions', 'totalCommits', 'totalDeletions', 'totalNet'];
       index = 0;
-      while (index < repoContributions.totalAdditions.length) {
-        data.totalAdditions[index] = {
-          name: repoContributions.totalAdditions[index].name,
-          stat: repoContributions.totalAdditions[index].stat,
-        };
-        data.totalCommits[index] = {
-          name: repoContributions.totalCommits[index].name,
-          stat: repoContributions.totalCommits[index].stat,
-        };
-        data.totalDeletions[index] = {
-          name: repoContributions.totalDeletions[index].name,
-          stat: repoContributions.totalDeletions[index].stat,
-        };
-        data.totalNet[index] = {
-          name: repoContributions.totalNet[index].name,
-          stat: repoContributions.totalNet[index].stat,
-        };
-        index++;
+      for (const type of dataTypes) {
+        while (index < repoContributions[type].length) {
+          data[type][index] = {
+            name: repoContributions[type][index].name,
+            stat: repoContributions[type][index].stat,
+          };
+          index++;
+        }
       }
 
       await data.save();
@@ -102,7 +95,6 @@ export const getRepoContributions = async (owner: string, repo: string, callback
       callback(ret);
     }
   } catch (e) {
-    console.log(e);
     error();
   }
 };

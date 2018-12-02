@@ -1,19 +1,24 @@
 export interface IUserRepos {
-  children: IUserRepo[];
+  forks: ISizes;
+  size: ISizes;
+  stars: ISizes;
+  watchers: ISizes;
+  user: string;
+}
+
+export interface ISizes {
+  children: IRepoStat[];
   name: string;
 }
-interface IUserRepo {
-  id: string;
+interface IRepoStat {
   name: string;
-  size: number;
+  value: number;
   language: string;
 }
 
 export interface IRepoContributions {
   name: string;
-
   weeks: IWeek[];
-
   totalAdditions: ITotalStats[];
   totalDeletions: ITotalStats[];
   totalNet: ITotalStats[];

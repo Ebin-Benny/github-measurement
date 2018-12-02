@@ -5,15 +5,47 @@ export interface IUserReposData extends Document, IUserRepos {}
 export interface IRepoContributionsData extends Document, IRepoContributions {}
 
 const userRepos = new Schema({
-  children: [
-    {
-      id: String,
-      language: String,
-      name: String,
-      size: Number,
-    },
-  ],
-  name: String,
+  forks: {
+    children: [
+      {
+        language: String,
+        name: String,
+        value: Number,
+      },
+    ],
+    name: String,
+  },
+  size: {
+    children: [
+      {
+        language: String,
+        name: String,
+        value: Number,
+      },
+    ],
+    name: String,
+  },
+  stars: {
+    children: [
+      {
+        language: String,
+        name: String,
+        value: Number,
+      },
+    ],
+    name: String,
+  },
+  user: String,
+  watchers: {
+    children: [
+      {
+        language: String,
+        name: String,
+        value: Number,
+      },
+    ],
+    name: String,
+  },
 });
 
 const repoContributions = new Schema({
