@@ -7,7 +7,7 @@ export const getUserRepos = async (userName: string, callback: any, error: any) 
 
     if (!ret) {
       const data = new UserRepos();
-      const dataTypes = ['size', 'stars', 'forks', 'watchers'];
+      const dataTypes = ['size', 'stars', 'forks', 'issues'];
       const userRepos = await getUsers(userName);
 
       data.user = userName;

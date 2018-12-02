@@ -18,6 +18,10 @@ export const getUserRepos = async (username: string): Promise<IUserRepos> => {
         children: [],
         name: username,
       },
+      issues: {
+        children: [],
+        name: username,
+      },
       size: {
         children: [],
         name: username,
@@ -27,24 +31,31 @@ export const getUserRepos = async (username: string): Promise<IUserRepos> => {
         name: username,
       },
       user: username,
-      watchers: {
-        children: [],
-        name: username,
-      },
     };
 
     let index = 0;
     for (const repo of data) {
-      userRepos.size.children[index] = { name: repo.full_name, value: repo.size, language: repo.language };
-      userRepos.stars.children[index] = { name: repo.full_name, value: repo.stargazers_count, language: repo.language };
-      userRepos.watchers.children[index] = {
+      userRepos.size.children[index] = {
         language: repo.language,
         name: repo.full_name,
-        value: repo.watchers_count,
+        value: repo.size,
       };
-      userRepos.forks.children[index++] = { name: repo.full_name, value: repo.forks, language: repo.language };
+      userRepos.stars.children[index] = {
+        language: repo.language,
+        name: repo.full_name,
+        value: repo.stargazers_count,
+      };
+      userRepos.issues.children[index] = {
+        language: repo.language,
+        name: repo.full_name,
+        value: repo.open_issues,
+      };
+      userRepos.forks.children[index++] = {
+        language: repo.language,
+        name: repo.full_name,
+        value: repo.forks,
+      };
     }
-
     return userRepos;
   } catch (e) {
     return Promise.reject();

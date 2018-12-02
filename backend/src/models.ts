@@ -2,7 +2,7 @@ export interface IUserRepos {
   forks: ISizes;
   size: ISizes;
   stars: ISizes;
-  watchers: ISizes;
+  issues: ISizes;
   user: string;
 }
 

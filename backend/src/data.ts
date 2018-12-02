@@ -15,6 +15,16 @@ const userRepos = new Schema({
     ],
     name: String,
   },
+  issues: {
+    children: [
+      {
+        language: String,
+        name: String,
+        value: Number,
+      },
+    ],
+    name: String,
+  },
   size: {
     children: [
       {
@@ -36,16 +46,6 @@ const userRepos = new Schema({
     name: String,
   },
   user: String,
-  watchers: {
-    children: [
-      {
-        language: String,
-        name: String,
-        value: Number,
-      },
-    ],
-    name: String,
-  },
 });
 
 const repoContributions = new Schema({
