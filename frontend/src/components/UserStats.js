@@ -15,14 +15,14 @@ class UserStats extends Component {
       visible: false,
       state: 'size',
       title: 'Size of Users Repos (kB)',
-      total: { "size": 0, "stars": 0, "forks": 0, "watchers": 0 }
+      total: { "size": 0, "stars": 0, "forks": 0, "issues": 0 }
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSize = this.handleSize.bind(this);
     this.handleStars = this.handleStars.bind(this);
     this.handleForks = this.handleForks.bind(this);
-    this.handleWatchers = this.handleWatchers.bind(this);
+    this.handleIssues = this.handleIssues.bind(this);
   }
 
   handleChange(event) {
@@ -42,8 +42,8 @@ class UserStats extends Component {
           username: this.state.value
         }
       }).then((result) => {
-        const types = ['size', 'stars', 'watchers', 'forks'];
-        let total = { "size": 0, "stars": 0, "forks": 0, "watchers": 0 };
+        const types = ['size', 'stars', 'issues', 'forks'];
+        let total = { "size": 0, "stars": 0, "forks": 0, "issues": 0 };
         for (var type of types) {
           result.data.data[type].language = "USERNAME";
           for (var child of result.data.data[type].children) {
@@ -63,9 +63,9 @@ class UserStats extends Component {
     this.handleSubmit(event);
   }
 
-  handleWatchers(event) {
+  handleIssues(event) {
     event.preventDefault();
-    this.setState({ state: 'watchers', message: 'Number of Watchers' });
+    this.setState({ state: 'issues', message: 'Number of Open Issues' });
     this.handleSubmit(event);
   }
 
@@ -92,7 +92,7 @@ class UserStats extends Component {
         'size': 'This user has no repos',
         'stars': 'This user has no stars on their repos',
         'forks': 'No-one has forked this users repos',
-        'watchers': 'No-one is watching this users repos'
+        'issues': 'There are no-open issues on this users repos'
       }
       chart = <div className="chart-title">{errors[this.state.state]}</div>
     }
@@ -111,11 +111,11 @@ class UserStats extends Component {
             <form className="row" onSubmit={this.handleStars}>
               <input className="ghost-input-small" type="submit" value="Stars" />
             </form>
-            <form className="row" onSubmit={this.handleWatchers}>
-              <input className="ghost-input-small" type="submit" value="Watchers" />
-            </form>
             <form className="row" onSubmit={this.handleForks}>
               <input className="ghost-input-small" type="submit" value="Forks" />
+            </form>
+            <form className="row" onSubmit={this.handleIssues}>
+              <input className="ghost-input-small" type="submit" value="Issues" />
             </form>
           </div>
         </div>
