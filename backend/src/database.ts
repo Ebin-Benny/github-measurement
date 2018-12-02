@@ -71,8 +71,8 @@ export const getRepoContributions = async (owner: string, repo: string, callback
       }
 
       const dataTypes = ['totalAdditions', 'totalCommits', 'totalDeletions', 'totalNet'];
-      index = 0;
       for (const type of dataTypes) {
+        index = 0;
         while (index < repoContributions[type].length) {
           data[type][index] = {
             name: repoContributions[type][index].name,
