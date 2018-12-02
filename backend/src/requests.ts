@@ -38,9 +38,9 @@ export const getUserRepos = async (username: string): Promise<IUserRepos> => {
       userRepos.size.children[index] = { name: repo.full_name, value: repo.size, language: repo.language };
       userRepos.stars.children[index] = { name: repo.full_name, value: repo.stargazers_count, language: repo.language };
       userRepos.watchers.children[index] = {
+        language: repo.language,
         name: repo.full_name,
         value: repo.watchers_count,
-        language: repo.language,
       };
       userRepos.forks.children[index++] = { name: repo.full_name, value: repo.forks, language: repo.language };
     }

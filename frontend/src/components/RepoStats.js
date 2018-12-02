@@ -44,7 +44,7 @@ class RepoStats extends Component {
         if (this.state.value !== undefined || this.state.value !== '') {
             axios({
                 method: 'get',
-                url: 'http://api.ebin.xyz/api/getRepoContributions',
+                url: 'http://127.0.0.1:3001/api/getRepoContributions',
                 params: {
                     repo: this.state.value
                 }
@@ -167,7 +167,7 @@ class RepoStats extends Component {
                     </div>
                 </div>
                 <div className="App">
-                    <div className="parent">
+                    <div className="repo-parent">
                         <div className="chart">
                             {chart}
                         </div>

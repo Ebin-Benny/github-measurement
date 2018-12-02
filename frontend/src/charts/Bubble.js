@@ -17,7 +17,7 @@ class Bubble extends React.Component {
                         "left": 0
                     }}
                     identity="name"
-                    value="size"
+                    value="value"
                     leavesOnly={false}
                     colors="nivo"
                     labelTextColor="#000"

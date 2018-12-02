@@ -20,8 +20,8 @@ class App extends Component {
                         <Route path="/Repo" component={RepoStats} />
                     </div>
                     <ul className="App-footer">
-                        <li><NavLink to="/User">User Information</NavLink></li>
-                        <li><NavLink to="/Repo">Repo Information</NavLink></li>
+                        <li><NavLink to="/User">User Repo Info</NavLink></li>
+                        <li><NavLink to="/Repo">Repo Contribution Info</NavLink></li>
                     </ul>
                 </div>
             </HashRouter>
