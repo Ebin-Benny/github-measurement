@@ -1,5 +1,5 @@
 # Github Measurement
-Github Measurement Web App for CS3012 by Ebin Benny (16319782). The front-end is a react based web app. It uses @nivo/rocks for the graphs. The backend uses express.js for handling requests and uses octokit/rest to get information from the github api. The backend server stores previously requested information inside a MongoDB database.
+Github Measurement Web App for CS3012 by Ebin Benny (16319782). The front-end is a react based web app. It uses @nivo/rocks for the graphs, @nivo/rocks is a library built off d3.js for react. The backend uses express.js for handling requests and uses octokit/rest to get information from the github api. The backend server stores previously requested information inside a MongoDB database.
 
 ## Live
 
@@ -7,7 +7,7 @@ Github Measurement Web App for CS3012 by Ebin Benny (16319782). The front-end is
 
 ## Specs
 
-Interrogate the GitHub API to build visualisation of data available tht elucidates some aspect of the softare engineering process, such as a social graph of developers and projects, or a visualisation of indiviudal or team performance. Provide a visualisation of this using the d3js library.
+Interrogate the GitHub API to build visualisation of data available that elucidates some aspect of the softare engineering process, such as a social graph of developers and projects, or a visualisation of indiviudal or team performance. Provide a visualisation of this using the d3js library.
 
 ## Screenshots
 
