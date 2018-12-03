@@ -1,5 +1,5 @@
 # Github Measurement
-Github Measurement Web App for CS3012 by Ebin Benny (16319782)
+Github Measurement Web App for CS3012 by Ebin Benny (16319782). The front-end is a react based web app. It uses @nivo/rocks for the graphs. The backend uses express.js for handling requests and uses octokit/rest to get information from the github api. The backend server stores previously requested information inside a MongoDB database.
 
 ## Live
 
